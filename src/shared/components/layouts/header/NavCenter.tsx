@@ -6,7 +6,7 @@ import {
   FaChevronLeft,
   FaShoppingBag,
 } from "react-icons/fa";
-import LoginModal from "../../ui/forms/signinform"; 
+import LoginModal from "../../ui/forms/signinForm"; 
 
 export default function NavCenter() {
   const [isCartOpen, setIsCartOpen] = useState(false);
