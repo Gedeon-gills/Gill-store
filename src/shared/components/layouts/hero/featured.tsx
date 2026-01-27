@@ -6,69 +6,75 @@ import {
   FaHeart,
 } from "react-icons/fa6";
 
-interface FeaturedList {
+interface FeaturedListProps {
   products: feature[];
+  limit?: number; // optional limit
+  title?: string; // optional title
 }
 
-export const FeaturedList = ({ products }: FeaturedList) => {
+export const FeaturedList = ({ products, limit, title }: FeaturedListProps) => {
   if (!products || products.length === 0) {
     return (
-      <p className="text-center text-gray-400 py-20">
-        No products found
-      </p>
+      <p className="text-center text-gray-400 py-20">No products found</p>
     );
   }
 
+  // Slice only if limit is provided
+  const displayProducts = limit ? products.slice(0, limit) : products;
+
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
-      {products.map((item, index) => (
-        <div
-          key={index}
-          className="relative group rounded-lg bg-white overflow-hidden
-          shadow hover:shadow-lg transition-all duration-300 pb-4"
-        >
-          <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
-            <FaHeart />
-          </button>
+    <div className="max-w-[1200px] mx-auto px-4 my-24">
+      {/* Render title only if passed */}
+      {title && (
+        <h2 className="text-3xl font-bold text-gray-700 mb-8 align-center">
+          {title}
+        </h2>
+      )}
 
-          <div className="w-full h-64 overflow-hidden bg-gray-100">
-            <img
-              src={item.image.desktop}
-              alt={item.name}
-              className="w-full h-full object-cover"
-            />
-          </div>
-
-          <div className="px-3 mt-3">
-            <p className="text-[11px] text-gray-500 uppercase">
-              {item.category}
-            </p>
-
-            <h2 className="text-sm font-semibold mt-1 capitalize">
-              {item.name}
-            </h2>
-
-            <p className="text-blue-600 font-semibold text-sm mt-2">
-              ${item.price}.00
-            </p>
-          </div>
-
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
+        {displayProducts.map((item, index) => (
           <div
-            className="absolute left-1/2 -translate-x-1/2 bottom-6
-            opacity-0 group-hover:opacity-100 transition flex gap-3"
+            key={index}
+            className="relative group rounded-lg bg-white overflow-hidden
+            shadow hover:shadow-lg transition-all duration-300 pb-8"
           >
-            <button className="bg-white p-2 rounded shadow">
-              <FaShuffle />
+            <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
+              <FaHeart />
             </button>
-            <button className="bg-white p-2 rounded shadow">
-              <FaCartShopping />
-            </button>
-            <button className="bg-white p-2 rounded shadow">
-              <FaSearchengin />
-            </button>
+
+            <div className="w-full h-64 overflow-hidden bg-gray-100">
+              <img
+                src={item.image.desktop}
+                alt={item.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="px-3 mt-3">
+              <p className="text-[11px] text-gray-500 uppercase">{item.category}</p>
+              <h2 className="text-sm font-semibold mt-1 capitalize">{item.name}</h2>
+              <p className="text-blue-600 font-semibold text-sm mt-2">
+                ${item.price}.00
+              </p>
+            </div>
+
+            <div
+              className="absolute left-1/2 -translate-x-1/2 bottom-30
+              opacity-0 group-hover:opacity-100 transition flex gap-3"
+            >
+              <button className="bg-white p-2 rounded shadow">
+                <FaShuffle />
+              </button>
+              <button className="bg-white p-2 rounded shadow">
+                <FaCartShopping />
+              </button>
+              <button className="bg-white p-2 rounded shadow">
+                <FaSearchengin />
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

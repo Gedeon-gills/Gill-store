@@ -1,8 +1,8 @@
 export interface feature {
-  name: string;        // Product name (optional display)
-  
+  id: number;           // Unique identifier
+  name: string;         // Product name
   category: "men" | "women" | "bag" | "shoes" | "watches";
-  type: string;        // T-SHIRT, CASUAL SHOES, LEATHER, etc.
+  type: string;         // T-SHIRT, CASUAL SHOES, LEATHER, etc.
   image: {
     desktop: string;
   };
@@ -11,8 +11,8 @@ export interface feature {
 
 export const features: feature[] = [
   {
+    id: 1,
     name: "Hooded T-Shirt",
-    
     category: "men",
     type: "T-SHIRT",
     image: {
@@ -21,19 +21,18 @@ export const features: feature[] = [
     price: 80,
   },
   {
+    id: 2,
     name: "Blouson Top",
-    
     category: "women",
     type: "SHORTS & SKIRTS",
     image: {
-      desktop:
-        "/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg",
+      desktop: "/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg",
     },
     price: 80,
   },
   {
+    id: 3,
     name: "Graphic Backpack",
-    
     category: "bag",
     type: "LUGGAGE & TRAVEL",
     image: {
@@ -42,19 +41,18 @@ export const features: feature[] = [
     price: 80,
   },
   {
+    id: 4,
     name: "Mid-Top Sneakers",
-    
     category: "shoes",
     type: "CASUAL SHOES",
     image: {
-      desktop:
-        "/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg",
+      desktop: "/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg",
     },
     price: 80,
   },
   {
+    id: 5,
     name: "Analog Watch",
-    
     category: "watches",
     type: "LEATHER",
     image: {

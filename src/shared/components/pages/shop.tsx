@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../layouts/header/Navbar";
+import ScrollButton from "../ui/button"
 import { Footer } from "../layouts/footer/footer";
 import { FeaturedList } from "../layouts/hero/featured";
 import { features } from "../../store/featured";
@@ -16,7 +17,7 @@ const Shop = () => {
   return (
     <>
       <Navbar />
-
+      <ScrollButton />
       <header className="py-12 text-center bg-[#f9f9f9] border-b mb-10">
         <h1 className="text-5xl font-bold text-gray-700 mb-2 capitalize">
           {category || "Shop"}

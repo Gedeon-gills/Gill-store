@@ -17,7 +17,7 @@ export default function hero() {
       <ScrollButton />
       <Product />
       <CategoryList />
-      <FeaturedList products={features} />
+      <FeaturedList products={features} limit={4} title="Featured Products" />
       <Menfashion />
       <Footer />
       
