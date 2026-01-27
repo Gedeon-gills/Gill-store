@@ -8,26 +8,40 @@ export interface Category {
 export const categories: Category[] = [
   {
     name: "men",
-    image: { desktop: "/public/image/men/Men-Navy-Blue-Grey-Colour-Jacket-1.jpg" },
+    image: {
+      desktop: "/public/image/men/Men-Navy-Blue-Grey-Colour-Jacket-1.jpg",
+    },
   },
   {
     name: "women",
-    image: { desktop: "/public/image/women/black girl suit.jpg" },
+    image: {
+      desktop: "/public/image/women/black girl suit.jpg",
+    },
   },
   {
     name: "jewellery",
-    image: { desktop: "/public/image/jewellery/Gold-Toned-Alloy-Gold-Plated-Cuff-Bracelet-2.jpg" },
+    image: {
+      desktop:
+        "/public/image/jewellery/Gold-Toned-Alloy-Gold-Plated-Cuff-Bracelet-2.jpg",
+    },
   },
   {
-    name: "Bag",
-    image: { desktop: "/public/image/bag/Unisex-Blue-Graphic-Backpack.jpg" },
+    name: "bag",
+    image: {
+      desktop: "/public/image/bag/Unisex-Blue-Graphic-Backpack.jpg",
+    },
   },
   {
-    name: "Shoes",
-    image: { desktop: "/public/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg" },
+    name: "shoes",
+    image: {
+      desktop:
+        "/public/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg",
+    },
   },
   {
-    name: "Watches",
-    image: { desktop: "/public/image/watches/Men-Black-Analogue-Watch-3.jpg" },
+    name: "watches",
+    image: {
+      desktop: "/public/image/watches/Men-Black-Analogue-Watch-3.jpg",
+    },
   },
 ];

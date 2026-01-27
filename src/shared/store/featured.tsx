@@ -1,47 +1,66 @@
-export  interface feature {
-  name: string;
+export interface feature {
+  name: string;        // Product name (optional display)
   description: string;
-  category: string;
+  category: "men" | "women" | "bag" | "shoes" | "watches";
+  type: string;        // T-SHIRT, CASUAL SHOES, LEATHER, etc.
   image: {
     desktop: string;
   };
   price: number;
 }
 
-export const features: feature [] = [
+export const features: feature[] = [
   {
-    name: "men",
+    name: "Hooded T-Shirt",
     description: "",
-    category: "T-SHIRT",
-    image: { desktop: "/public/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-2.jpg" },
+    category: "men",
+    type: "T-SHIRT",
+    image: {
+      desktop: "/public/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-2.jpg",
+    },
     price: 80,
   },
   {
-    name: "women",
+    name: "Blouson Top",
     description: "",
-    category: "SHORTS & SKIRTS",
-    image: { desktop: "/public/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg" },
+    category: "women",
+    type: "SHORTS & SKIRTS",
+    image: {
+      desktop:
+        "/public/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg",
+    },
     price: 80,
   },
   {
-    name: "Bag",
+    name: "Graphic Backpack",
     description: "",
-    category: "LUGGAGE & TRAVEL",
-    image: { desktop: "/public/image/bag/Unisex-Blue-Graphic-Backpack.jpg" },
+    category: "bag",
+    type: "LUGGAGE & TRAVEL",
+    image: {
+      desktop: "/public/image/bag/Unisex-Blue-Graphic-Backpack.jpg",
+    },
     price: 80,
   },
   {
-    name: "Shoes",
+    name: "Mid-Top Sneakers",
     description: "",
-    category: "CASUAL SHOES",
-    image: { desktop: "/public/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg" },
+    category: "shoes",
+    type: "CASUAL SHOES",
+    image: {
+      desktop:
+        "/public/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg",
+    },
     price: 80,
   },
   {
-    name: "Watches",
+    name: "Analog Watch",
     description: "",
-    category: "LEATHER",
-    image: { desktop: "/public/image/watches/Navy-BlueSilver-White-Multifunction-Analog-Watch-2.jpg" },
+    category: "watches",
+    type: "LEATHER",
+    image: {
+      desktop:
+        "/public/image/watches/Navy-BlueSilver-White-Multifunction-Analog-Watch-2.jpg",
+    },
     price: 80,
   },
 ];
