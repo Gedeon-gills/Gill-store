@@ -6,11 +6,11 @@ import {
   FaHeart,
 } from "react-icons/fa6";
 
-interface FeaturedListProps {
+interface FeaturedList {
   products: feature[];
 }
 
-export const FeaturedList = ({ products }: FeaturedListProps) => {
+export const FeaturedList = ({ products }: FeaturedList) => {
   if (!products || products.length === 0) {
     return (
       <p className="text-center text-gray-400 py-20">
@@ -20,7 +20,7 @@ export const FeaturedList = ({ products }: FeaturedListProps) => {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
       {products.map((item, index) => (
         <div
           key={index}

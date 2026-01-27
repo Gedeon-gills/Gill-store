@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import Navbar from "../layouts/header/Navbar";
 import { Footer } from "../layouts/footer/footer";
-import { FeaturedList } from "../../components/layouts/hero/featured";
+import { FeaturedList } from "../layouts/hero/featured";
 import { features } from "../../store/featured";
 
 const Shop = () => {
