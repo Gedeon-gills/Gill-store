@@ -6,6 +6,7 @@ import { FeaturedList } from "../layouts/hero/featured"
 import { Menfashion } from "../layouts/hero/menfashion"
 import { Footer } from "../layouts/footer/footer"
 import  DiscountModal  from "../ui/forms/signupForm"
+import { features } from "../../store/featured";
 import { Outlet } from "react-router-dom"
 
 export default function hero() {
@@ -16,7 +17,7 @@ export default function hero() {
       <ScrollButton />
       <Product />
       <CategoryList />
-      <FeaturedList />
+      <FeaturedList products={features} />
       <Menfashion />
       <Footer />
       
