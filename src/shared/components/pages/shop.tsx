@@ -43,6 +43,11 @@ const Shop = () => {
             "shoes",
             "watches",
             "jewellery",
+            "hats",
+            "sunglasses",
+            "jackets",
+            "Accessories",
+            "Tops",
             "bag",
           ].map((cat) => (
             <Link
