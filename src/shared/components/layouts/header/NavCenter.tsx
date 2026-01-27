@@ -6,7 +6,8 @@ import {
   FaChevronLeft,
   FaShoppingBag,
 } from "react-icons/fa";
-import LoginModal from "../../ui/forms/signinForm"; 
+import LoginModal from "../../ui/forms/signinForm";
+import { Link } from "react-router-dom";
 
 export default function NavCenter() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -86,9 +87,11 @@ export default function NavCenter() {
               <p className="text-gray-600 text-sm font-bold">
                 YOUR SHOPPING CART IS EMPTY!
               </p>
-              <button className="bg-blue-600 text-white text-[10px] font-bold px-4 py-2">
-                CONTINUE SHOPPING
-              </button>
+              <Link to="/shop">
+                <button className="bg-blue-600 text-white text-[10px] font-bold px-4 py-2">
+                  CONTINUE SHOPPING
+                </button>
+              </Link>
             </div>
           </div>
         </>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { feature } from "../../../store/featured";
 import {
   FaCartShopping,
@@ -24,7 +25,6 @@ export const FeaturedList = ({ products, limit, title }: FeaturedListProps) => {
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 my-24">
-      {/* Render title only if passed */}
       {title && (
         <h2 className="text-3xl font-bold text-gray-700 mb-8 align-center">
           {title}
@@ -33,48 +33,63 @@ export const FeaturedList = ({ products, limit, title }: FeaturedListProps) => {
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
         {displayProducts.map((item, index) => (
-          <div
+          <Link
             key={index}
-            className="relative group rounded-lg bg-white overflow-hidden
-            shadow hover:shadow-lg transition-all duration-300 pb-8"
+            to={`/product/${encodeURIComponent(item.name)}`}
+            className="group"
           >
-            <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow">
-              <FaHeart />
-            </button>
-
-            <div className="w-full h-64 overflow-hidden bg-gray-100">
-              <img
-                src={item.image.desktop}
-                alt={item.name}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            <div className="px-3 mt-3">
-              <p className="text-[11px] text-gray-500 uppercase">{item.category}</p>
-              <h2 className="text-sm font-semibold mt-1 capitalize">{item.name}</h2>
-              <p className="text-blue-600 font-semibold text-sm mt-2">
-                ${item.price}.00
-              </p>
-            </div>
-
             <div
-              className="absolute left-1/2 -translate-x-1/2 bottom-30
-              opacity-0 group-hover:opacity-100 transition flex gap-3"
+              className="relative rounded-lg bg-white overflow-hidden
+              shadow hover:shadow-lg transition-all duration-300 pb-8"
             >
-              <button className="bg-white p-2 rounded shadow">
-                <FaShuffle />
+              {/* Wishlist */}
+              <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow z-10">
+                <FaHeart />
               </button>
-              <button className="bg-white p-2 rounded shadow">
-                <FaCartShopping />
-              </button>
-              <button className="bg-white p-2 rounded shadow">
-                <FaSearchengin />
-              </button>
+
+              {/* Image */}
+              <div className="w-full h-64 overflow-hidden bg-gray-100">
+                <img
+                  src={item.image.desktop}
+                  alt={item.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+
+              {/* Product Info */}
+              <div className="px-3 mt-3">
+                <p className="text-[11px] text-gray-500 uppercase">
+                  {item.category}
+                </p>
+                <h2 className="text-sm font-semibold mt-1 capitalize">
+                  {item.name}
+                </h2>
+                <p className="text-blue-600 font-semibold text-sm mt-2">
+                  ${item.price}.00
+                </p>
+              </div>
+
+              {/* Hover Actions */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2 bottom-30
+                opacity-0 group-hover:opacity-100 transition-all duration-300
+                flex gap-3"
+              >
+                <button className="bg-white p-2 rounded shadow">
+                  <FaShuffle />
+                </button>
+                <button className="bg-white p-2 rounded shadow">
+                  <FaCartShopping />
+                </button>
+                <button className="bg-white p-2 rounded shadow">
+                  <FaSearchengin />
+                </button>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
   );
 };
+
