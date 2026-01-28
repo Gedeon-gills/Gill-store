@@ -1,10 +1,11 @@
 export interface feature {
-  id: number;           // Unique identifier
-  name: string;         // Product name
+  id: number; // Unique identifier
+  name: string; // Product name
   category: "men" | "women" | "bag" | "shoes" | "watches";
-  type: string;         // T-SHIRT, CASUAL SHOES, LEATHER, etc.
+  type: string; // T-SHIRT, CASUAL SHOES, LEATHER, etc.
+  description?: string;
   image: {
-    desktop: string;
+    desktop: string[];
   };
   price: number;
 }
@@ -15,8 +16,14 @@ export const features: feature[] = [
     name: "Hooded T-Shirt",
     category: "men",
     type: "T-SHIRT",
+    description: "Upgrade your casual wardrobe with our premium hooded t-shirt. Crafted from soft, breathable cotton-blend fabric, this t-shirt provides all-day comfort while maintaining a modern, sporty look.",
     image: {
-      desktop: "/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-2.jpg",
+      desktop: [
+        "/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-2.jpg",
+        "/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-4.jpg",
+        "/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt-5.jpg",
+        "/image/men/Solid-Men-Hooded-Blue-Grey-T-Shirt.jpg",
+      ],
     },
     price: 80,
   },
@@ -26,7 +33,7 @@ export const features: feature[] = [
     category: "women",
     type: "SHORTS & SKIRTS",
     image: {
-      desktop: "/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg",
+      desktop: ["/image/women/Women-Off-White-Printed-Blouson-Top-2.jpg"],
     },
     price: 80,
   },
@@ -36,7 +43,7 @@ export const features: feature[] = [
     category: "bag",
     type: "LUGGAGE & TRAVEL",
     image: {
-      desktop: "/image/bag/Unisex-Blue-Graphic-Backpack.jpg",
+      desktop: ["/image/bag/Unisex-Blue-Graphic-Backpack.jpg"],
     },
     price: 80,
   },
@@ -46,7 +53,7 @@ export const features: feature[] = [
     category: "shoes",
     type: "CASUAL SHOES",
     image: {
-      desktop: "/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg",
+      desktop: ["/image/shoes/Men-Blue-Colourblocked-Mid-Top-Sneakers-2.jpg"],
     },
     price: 80,
   },
@@ -56,8 +63,9 @@ export const features: feature[] = [
     category: "watches",
     type: "LEATHER",
     image: {
-      desktop:
+      desktop: [
         "/image/watches/Navy-BlueSilver-White-Multifunction-Analog-Watch-2.jpg",
+      ],
     },
     price: 80,
   },

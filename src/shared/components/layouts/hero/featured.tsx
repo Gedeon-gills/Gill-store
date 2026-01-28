@@ -50,7 +50,7 @@ export const FeaturedList = ({ products, limit, title }: FeaturedListProps) => {
               {/* Image */}
               <div className="w-full h-64 overflow-hidden bg-gray-100">
                 <img
-                  src={item.image.desktop}
+                  src={item.image.desktop[0]}
                   alt={item.name}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />

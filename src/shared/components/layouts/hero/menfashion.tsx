@@ -91,7 +91,7 @@ export const Menfashion = () => {
                     </span>
 
                     <img
-                      src={item.image.desktop}
+                      src={item.image.desktop[0]}
                       alt={item.name}
                       className="w-full h-[80%] object-cover"
                     />
@@ -168,7 +168,7 @@ export const Menfashion = () => {
                     </span>
 
                     <img
-                      src={item.image.desktop}
+                      src={item.image.desktop[0]}
                       alt={item.name}
                       className="w-full h-[80%] object-cover"
                     />
@@ -247,7 +247,7 @@ export const Menfashion = () => {
                     </span>
 
                     <img
-                      src={item.image.desktop}
+                      src={item.image.desktop[0]}
                       alt={item.name}
                       className="w-full h-[80%] object-cover"
                     />

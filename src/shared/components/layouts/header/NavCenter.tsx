@@ -1,29 +1,44 @@
-import { useState } from "react";
 import {
   FaUser,
   FaHeart,
   FaShoppingCart,
   FaChevronLeft,
-  FaShoppingBag,
+  FaPlus,
+  FaMinus,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import LoginModal from "../../ui/forms/signinForm";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useCart } from "../../layouts/context/useCart";
 
 export default function NavCenter() {
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSignInOpen, setIsSignInOpen] = useState(false);
+
+  const {
+    cart,
+    getTotal,
+    isCartOpen,
+    openCart,
+    closeCart,
+    increaseQty,
+    decreaseQty,
+  } = useCart();
+
+  const navigate = useNavigate();
 
   return (
     <div className="bg-blue-600">
       <div className="max-w-7xl mx-auto flex items-center px-4 py-4">
+        {/* LOGO */}
         <div className="text-white text-3xl font-bold mr-10">
           GillStore<span className="text-white">.</span>
         </div>
 
+        {/* Search */}
         <div className="flex flex-1">
           <input
-            className="w-full h-12 px-6 rounded-l-full bg-white text-gray-600 placeholder-gray-400 text-sm focus:outline-none"
-            placeholder="Search for products, categories, brands, sku..."
+            className="w-full h-12 px-6 rounded-l-full bg-white text-gray-600 text-sm"
+            placeholder="Search products..."
           />
           <select className="px-4 text-sm border-l bg-white text-gray-600">
             <option>All Categories</option>
@@ -31,73 +46,142 @@ export default function NavCenter() {
           <button className="bg-white px-5 rounded-r-full">🔍</button>
         </div>
 
+        {/* Icons */}
         <div className="flex items-center gap-8 text-white ml-10">
+          {/* Sign In */}
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => setIsSignInOpen(true)}
           >
             <FaUser />
-            <div className="text-xs leading-tight">
+            <div className="text-xs">
               <p>HELLO,</p>
               <p className="font-semibold">SIGN IN</p>
             </div>
           </div>
 
+          {/* Wishlist */}
           <div className="flex items-center gap-2">
             <FaHeart /> <span className="text-xs">0</span>
           </div>
 
+          {/* Cart */}
           <div
             className="flex items-center gap-2 cursor-pointer"
-            onClick={() => setIsCartOpen(true)}
+            onClick={openCart}
           >
             <FaShoppingCart />
-            <div className="text-xs leading-tight">
+            <div className="text-xs">
               <p>Cart</p>
-              <p className="font-semibold">$0.00</p>
+              <p className="font-semibold">${getTotal().toFixed(2)}</p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* SIDEBAR CART */}
       {isCartOpen && (
         <>
-          <div
-            className="fixed inset-0 bg-black/60 bg-opacity-50 z-40"
-            onClick={() => setIsCartOpen(false)}
-          />
-          <div
-            className={`fixed top-0 right-0 h-full w-80 bg-white z-50 transform transition-transform duration-300 ${
-              isCartOpen ? "translate-x-0" : "translate-x-full"
-            }`}
-          >
-            <div className="p-4 relative bg-blue-600 flex items-center">
-              <button
-                onClick={() => setIsCartOpen(false)}
-                className="text-white absolute left-4"
-              >
+          <div className="fixed inset-0 bg-black/60 z-40" onClick={closeCart} />
+
+          <div className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg z-50">
+            {/* Header */}
+            <div className="p-4 bg-blue-600 text-white flex items-center">
+              <button onClick={closeCart} className="absolute left-4">
                 <FaChevronLeft />
               </button>
-              <h2 className="text-lg text-white font-semibold mx-auto">
-                Your Cart
-              </h2>
+              <h2 className="text-lg mx-auto font-semibold">Your Cart</h2>
             </div>
-            <div className="p-4 flex flex-col items-center gap-4 mt-10">
-              <FaShoppingBag className="text-gray-600 text-8xl border-2 rounded-lg p-6" />
-              <p className="text-gray-600 text-sm font-bold">
-                YOUR SHOPPING CART IS EMPTY!
-              </p>
-              <Link to="/shop">
-                <button className="bg-blue-600 text-white text-[10px] font-bold px-4 py-2">
-                  CONTINUE SHOPPING
-                </button>
-              </Link>
+
+            {/* Cart Items */}
+            <div className="p-4 flex flex-col gap-4 mt-4">
+              {cart.length === 0 ? (
+                <div className="text-center text-gray-600 mt-10">
+                  <FaShoppingCart className="text-6xl mx-auto mb-4" />
+                  <p>Your shopping cart is empty!</p>
+                  <button
+                    className="bg-blue-600 text-white px-4 py-2 mt-4"
+                    onClick={() => {
+                      closeCart(); // close sidebar instantly
+                      navigate("/shop"); // navigate to shop page
+                    }}
+                  >
+                    CONTINUE SHOPPING
+                  </button>
+                </div>
+              ) : (
+                <>
+                  {cart.map((item) => (
+                    <div key={item.id} className="flex items-center gap-3">
+                      <img
+                        src={item.image}
+                        className="w-14 h-14 rounded object-cover"
+                      />
+
+                      <div className="flex-1">
+                        <p className="text-gray-700 text-sm">{item.name}</p>
+                        <p className="text-gray-500 text-xs">${item.price}</p>
+
+                        {/* Quantity Controller */}
+                        <div className="flex items-center gap-2 mt-2">
+                          <button
+                            className="p-1 border rounded text-xs"
+                            onClick={() => decreaseQty(item.id)}
+                          >
+                            <FaMinus size={10} />
+                          </button>
+
+                          <span className="px-2">{item.quantity}</span>
+
+                          <button
+                            className="p-1 border rounded text-xs"
+                            onClick={() => increaseQty(item.id)}
+                          >
+                            <FaPlus size={10} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Total + Checkout */}
+                  <div className="mt-4 border-t pt-4">
+                    <p className="font-semibold text-lg text-right mb-3">
+                      Total: ${getTotal().toFixed(2)}
+                    </p>
+
+                    <div className="flex gap-2">
+                      {/* View Cart */}
+                      <button
+                        className="flex-1 border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50"
+                        onClick={() => {
+                          closeCart();
+                          navigate("/cart");
+                        }}
+                      >
+                        View Cart
+                      </button>
+
+                      {/* Checkout */}
+                      <button
+                        className="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                        onClick={() => {
+                          closeCart();
+                          navigate("/checkout");
+                        }}
+                      >
+                        Checkout
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </>
       )}
 
-      {/* SIGN IN FORM */}
+      {/* SIGN IN MODAL */}
       {isSignInOpen && (
         <LoginModal
           isOpen={isSignInOpen}
