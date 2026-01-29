@@ -4,15 +4,9 @@ import type { feature } from "../../../store/featured";
 
 export const Menfashion = () => {
   const Menimages = [
-    {
-      src: "/image/collection/Brown and Pink Modern Summer Collection Poster.jpg",
-    },
-    {
-      src: "/image/collection/Neutral Men Simple Fashion Sale Instagram Post.jpg",
-    },
-    {
-      src: "/image/collection/Yellow And White Minimalist Weekend Sale Instagram Story.jpg",
-    },
+    { src: "/image/collection/Brown and Pink Modern Summer Collection Poster.jpg" },
+    { src: "/image/collection/Neutral Men Simple Fashion Sale Instagram Post.jpg" },
+    { src: "/image/collection/Yellow And White Minimalist Weekend Sale Instagram Story.jpg" },
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -26,239 +20,153 @@ export const Menfashion = () => {
   }, [Menimages.length]);
 
   return (
-    <>
-      <div className="space-y-25">
-        {/*MEN */}
-        <div className="max-w-[1200px] mx-auto w-full px-4 border-t-2 border-t-blue-900 ">
-          <div className="flex gap-6 items-start">
-            <div className="bg-white">
-              <div className="w-[180px] rounded-xl bg-white text-blue-900 shadow-md hover:shadow-xl transition-all duration-300 p-6 min-h-[70vh] flex flex-col">
-                <h1 className="text-base font-semibold mb-4 md:text-center">Men's Fashion</h1>
+    <div className="space-y-12">
+      {/* MEN */}
+      <section className="max-w-7xl mx-auto w-full px-4 border-t-2 border-t-blue-900 py-8">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          {/* Sidebar */}
+          <div className="flex-shrink-0 w-full md:w-44 bg-white rounded-xl shadow-md p-6 text-blue-900">
+            <h1 className="text-base font-semibold mb-4 text-center">Men's Fashion</h1>
+            <ul className="space-y-2 text-gray-700 text-sm text-center md:text-left">
+              {["Wallets", "T-Shirts", "Shirts", "Jeans", "Jackets & Coats"].map((item) => (
+                <li key={item} className="hover:text-blue-900 cursor-pointer">{item}</li>
+              ))}
+            </ul>
+          </div>
 
-                <ul className="space-y-2 text-gray-700 text-sm md:text-center">
-                  <li className="hover:text-blue-900 cursor-pointer md:text-center">
-                    Wallets
-                  </li>
-                  <li className="hover:text-blue-900 cursor-pointer md:text-center">
-                    T-Shirts
-                  </li>
-                  <li className="hover:text-blue-900 cursor-pointer md:text-center">Shirts</li>
-                  <li className="hover:text-blue-900 cursor-pointer md:text-center">Jeans</li>
-                  <li className="hover:text-blue-900 cursor-pointer md:text-center">
-                    Jackets & Coats
-                  </li>
-                </ul>
+          {/* Slider */}
+          <div className="relative w-full md:w-96 h-80 md:h-[530px] overflow-hidden rounded-xl">
+            {Menimages.map((slide, index) => (
+              <div
+                key={index}
+                className={`absolute top-0 left-0 w-full h-full transition-transform duration-700 ${
+                  index === currentSlide
+                    ? "translate-x-0 z-10"
+                    : index < currentSlide
+                      ? "-translate-x-full z-0"
+                      : "translate-x-full z-0"
+                }`}
+              >
+                <img
+                  src={slide.src}
+                  alt="Featured"
+                  className="w-full h-full object-cover rounded-xl"
+                />
               </div>
-            </div>
+            ))}
+          </div>
 
-            <div className="relative w-[430px] h-[530px] overflow-hidden">
-              {Menimages.map((slide, index) => (
-                <div
-                  key={index}
-                  className={`absolute top-0 left-0 w-full h-full transition-transform duration-700 ${
-                    index === currentSlide
-                      ? "translate-x-0 z-10"
-                      : index < currentSlide
-                        ? "-translate-x-full z-0"
-                        : "translate-x-full z-0"
-                  }`}
-                >
+          {/* Featured Products */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 flex-1">
+            {features.map((item: feature, index: number) => (
+              <div
+                key={index}
+                className="bg-white relative transition-all duration-300 ease-in-out hover:shadow-lg"
+              >
+                <div className="w-full h-48 overflow-hidden bg-gray-100 relative">
+                  <span className="absolute top-2 left-2 bg-yellow-400 text-[10px] font-semibold px-2 py-1 rounded z-10">
+                    FEATURED
+                  </span>
                   <img
-                    src={slide.src}
-                    alt="Featured"
-                    className="w-full h-full object-cover rounded-xl"
+                    src={item.image.desktop[0]}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
                   />
                 </div>
-              ))}
-            </div>
-
-            <div className="ml-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-3">
-              {features.map((item: feature, index: number) => (
-                <div
-                  key={index}
-                  className="
-              bg-white relative
-              transition-all duration-300 ease-in-out
-              hover:pt-2 hover:pl-2 hover:pr-2
-              hover:pb-6 hover:-mb-6
-              hover:z-20
-              hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)]
-            "
-                >
-                  <div className="w-full h-50 overflow-hidden bg-gray-100">
-                    <span className="absolute top-5 left-2 bg-yellow-400 text-[10px] font-semibold px-2 py-1 rounded z-10">
-                      FEATURED
-                    </span>
-
-                    <img
-                      src={item.image.desktop[0]}
-                      alt={item.name}
-                      className="w-full h-[80%] object-cover"
-                    />
-                  </div>
-
-                  <div className="px-3 mt-2">
-                    <h2 className="text-sm text-gray-600 font-normal mt-1 capitalize leading-tight">
-                      {item.name}
-                    </h2>
-                    <p className="text-black font-semibold text-sm mt-1">
-                      ${item.price}.00
-                    </p>
-                  </div>
+                <div className="px-2 py-2">
+                  <h2 className="text-sm text-gray-600 font-normal capitalize">{item.name}</h2>
+                  <p className="text-black font-semibold text-sm mt-1">${item.price}.00</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/*WOMEN */}
-
-        <div className="max-w-[1200px] mx-auto w-full px-4 border-t-2 border-t-red-300 ">
-          <div className="flex gap-6 items-start">
-            <div className="bg-white">
-              <div className="w-[180px] rounded-xl bg-white text-red-300 shadow-md hover:shadow-xl transition-all duration-300 p-6 min-h-[70vh] flex flex-col">
-                <h1 className="text-base font-semibold mb-4 md:text-center">
-                  Women's Fashion
-                </h1>
-
-                <ul className="space-y-2 text-gray-700 text-sm md:text-center">
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">
-                    Trousers & Capris
-                  </li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">Tops</li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">
-                    Shorts & Skirts
-                  </li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">
-                    Lingerie & Nightwear
-                  </li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">Jeans</li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">Dresses</li>
-                  <li className="hover:text-red-300 cursor-pointer md:text-center">
-                    Jackets & Coats
-                  </li>
-                </ul>
               </div>
-            </div>
-
-            <div className="relative w-[430px] h-[530px] overflow-hidden rounded-xl">
-              <img
-                src="/image/collection/New Minimal Fashion Collection Model Instagram Post.jpg"
-                alt="Women's Featured"
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
-
-            <div className="ml-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-3">
-              {features.map((item: feature, index: number) => (
-                <div
-                  key={index}
-                  className="
-              bg-white relative
-              transition-all duration-300 ease-in-out
-              hover:pt-2 hover:pl-2 hover:pr-2
-              hover:pb-6 hover:-mb-6
-              hover:z-20
-              hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)]
-            "
-                >
-                  <div className="w-full h-50 overflow-hidden bg-gray-100">
-                    <span className="absolute top-5 left-2 bg-yellow-400 text-[10px] font-semibold px-2 py-1 rounded z-10">
-                      FEATURED
-                    </span>
-
-                    <img
-                      src={item.image.desktop[0]}
-                      alt={item.name}
-                      className="w-full h-[80%] object-cover"
-                    />
-                  </div>
-
-                  <div className="px-3 mt-2">
-                    <h2 className="text-sm text-gray-600 font-normal mt-1 capitalize leading-tight">
-                      {item.name}
-                    </h2>
-                    <p className="text-black font-semibold text-sm mt-1">
-                      ${item.price}.00
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/*categories */}
+      {/* WOMEN */}
+      <section className="max-w-7xl mx-auto w-full px-4 border-t-2 border-t-red-300 py-8">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="flex-shrink-0 w-full md:w-44 bg-white rounded-xl shadow-md p-6 text-red-500">
+            <h1 className="text-base font-semibold mb-4 text-center">Women's Fashion</h1>
+            <ul className="space-y-2 text-gray-700 text-sm text-center md:text-left">
+              {["Trousers & Capris","Tops","Shorts & Skirts","Lingerie & Nightwear","Jeans","Dresses","Jackets & Coats"].map((item) => (
+                <li key={item} className="hover:text-red-500 cursor-pointer">{item}</li>
+              ))}
+            </ul>
+          </div>
 
-        <div className="max-w-[1200px] mx-auto w-full px-4 border-t-2 border-t-[#C76E00] ">
-          <div className="flex gap-6 items-start">
-            <div className="bg-white">
-              <div className="w-[180px] rounded-xl bg-white text-[#C76E00] shadow-md hover:shadow-xl transition-all duration-300 p-6 min-h-[58vh] flex flex-col">
-                <h1 className="text-base font-semibold mb-4 md:text-center" >Fashion Categories </h1>
+          <div className="relative w-full md:w-96 h-80 md:h-[530px] overflow-hidden rounded-xl">
+            <img
+              src="/image/collection/New Minimal Fashion Collection Model Instagram Post.jpg"
+              alt="Women's Featured"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          </div>
 
-                <ul className="space-y-2 text-gray-700 text-sm">
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Women
-                  </li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Watches
-                  </li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">Shoes</li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">Men</li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Jewellery
-                  </li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Beauty & Care
-                  </li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Bags & Backpacks
-                  </li>
-                  <li className="hover:text-[#C76E00] cursor-pointer md:text-center">
-                    Accessories
-                  </li>
-                </ul>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 flex-1">
+            {features.map((item: feature, index: number) => (
+              <div
+                key={index}
+                className="bg-white relative transition-all duration-300 ease-in-out hover:shadow-lg"
+              >
+                <div className="w-full h-48 overflow-hidden bg-gray-100 relative">
+                  <span className="absolute top-2 left-2 bg-yellow-400 text-[10px] font-semibold px-2 py-1 rounded z-10">
+                    FEATURED
+                  </span>
+                  <img
+                    src={item.image.desktop[0]}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="px-2 py-2">
+                  <h2 className="text-sm text-gray-600 font-normal capitalize">{item.name}</h2>
+                  <p className="text-black font-semibold text-sm mt-1">${item.price}.00</p>
+                </div>
               </div>
-            </div>
-
-            <div className="relative w-[400px] h-[440px] overflow-hidden rounded-xl">
-              <img
-                src="/image/collection/Blue and White Clean Minimalist Winter Sale Men Wear Collection Instagram Post.jpg"
-                alt="Women's Featured"
-                className="w-full h-full object-cover rounded-xl"
-              />
-            </div>
-
-            <div className="ml-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-3">
-              {features.map((item: feature, index: number) => (
-                <div
-                  key={index}
-                  className="
-              bg-white relative
-              transition-all duration-300 ease-in-out
-              hover:p-4
-              hover:z-20
-              hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)]
-            "
-                >
-                  <div className="w-full h-50 overflow-hidden bg-gray-100">
-                    <span className="absolute top-5 left-2 bg-white/90 text-[10px] font-semibold px-2 py-1 rounded z-10">
-                      
-                    </span>
-
-                    <img
-                      src={item.image.desktop[0]}
-                      alt={item.name}
-                      className="w-full h-[80%] object-cover"
-                    />
-                  </div>
-
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </div>
-    </>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="max-w-7xl mx-auto w-full px-4 border-t-2 border-t-[#C76E00] py-8">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="flex-shrink-0 w-full md:w-44 bg-white rounded-xl shadow-md p-6 text-[#C76E00]">
+            <h1 className="text-base font-semibold mb-4 text-center">Fashion Categories</h1>
+            <ul className="space-y-2 text-gray-700 text-sm text-center md:text-left">
+              {["Women","Watches","Shoes","Men","Jewellery","Beauty & Care","Bags & Backpacks","Accessories"].map((item) => (
+                <li key={item} className="hover:text-[#C76E00] cursor-pointer">{item}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="relative w-full md:w-80 h-64 md:h-[440px] overflow-hidden rounded-xl">
+            <img
+              src="/image/collection/Blue and White Clean Minimalist Winter Sale Men Wear Collection Instagram Post.jpg"
+              alt="Categories Featured"
+              className="w-full h-full object-cover rounded-xl"
+            />
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6 flex-1">
+            {features.map((item: feature, index: number) => (
+              <div
+                key={index}
+                className="bg-white relative transition-all duration-300 ease-in-out hover:shadow-lg"
+              >
+                <div className="w-full h-36 md:h-48 overflow-hidden bg-gray-100">
+                  <img
+                    src={item.image.desktop[0]}
+                    alt={item.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };

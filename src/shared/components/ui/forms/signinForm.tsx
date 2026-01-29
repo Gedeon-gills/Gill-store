@@ -6,7 +6,7 @@ import type { LoginRequest, LoginResponse } from "../../../services/userServices
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onLoginSuccess?: (user: LoginResponse["user"], token: string) => void; // callback after login
+  onLoginSuccess?: (user: LoginResponse["user"], token: string) => void;
 }
 
 const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
@@ -30,7 +30,6 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
     try {
       setLoading(true);
 
-      // Call login API
       const payload: LoginRequest = {
         email: emailOrUsername,
         password,
@@ -38,19 +37,12 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
 
       const data = await userService.login(payload);
 
-      // Store token locally
       localStorage.setItem("authToken", data.token);
 
-      // Optional: store user in state or call a callback
-      if (onLoginSuccess) {
-        onLoginSuccess(data.user, data.token);
-      }
+      if (onLoginSuccess) onLoginSuccess(data.user, data.token);
 
-      // Clear form
       setEmailOrUsername("");
       setPassword("");
-
-      // Close modal
       onClose();
     } catch (err: unknown) {
       console.error(err);
@@ -63,7 +55,8 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="relative flex w-full max-w-xl overflow-hidden rounded-sm bg-white shadow-2xl md:flex-row">
+      <div className="relative w-full max-w-xl overflow-hidden rounded-lg bg-white shadow-2xl md:flex md:flex-row">
+        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute right-3 top-3 z-20 text-gray-400 hover:text-gray-600"
@@ -71,16 +64,16 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
           <FaWindowClose size={18} />
         </button>
 
-        <div className="flex w-full flex-col justify-center bg-blue-600 p-6 text-white md:w-2/5">
-          <div className="-mt-20">
-            <h2 className="mb-1 text-2xl font-bold">Login</h2>
-            <p className="text-xs font-normal leading-tight opacity-90">
-              Access your Orders, Wishlist and Recommendations.
-            </p>
-          </div>
+        {/* Blue Panel */}
+        <div className="w-full md:w-2/5 flex flex-col justify-center bg-blue-600 p-6 text-white text-center md:text-left">
+          <h2 className="mb-1 text-2xl font-bold">Login</h2>
+          <p className="text-xs font-normal leading-tight opacity-90">
+            Access your Orders, Wishlist and Recommendations.
+          </p>
         </div>
 
-        <div className="w-full bg-[#f9fdfa] p-6 md:w-3/5">
+        {/* Form */}
+        <div className="w-full md:w-3/5 bg-[#f9fdfa] p-6">
           <form className="mt-2 space-y-4" onSubmit={handleSubmit}>
             {error && <p className="text-xs text-red-500">{error}</p>}
 
@@ -90,7 +83,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
                 placeholder="Email"
                 value={emailOrUsername}
                 onChange={(e) => setEmailOrUsername(e.target.value)}
-                className="w-full bg-transparent py-2 text-xs outline-none placeholder:text-gray-400"
+                className="w-full bg-transparent py-2 text-sm sm:text-xs outline-none placeholder:text-gray-400"
               />
             </div>
 
@@ -100,18 +93,18 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent py-2 text-xs outline-none placeholder:text-gray-400"
+                className="w-full bg-transparent py-2 text-sm sm:text-xs outline-none placeholder:text-gray-400"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 p-1 text-white"
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 p-1 text-white rounded-r"
               >
                 {showPassword ? <FaEyeSlash size={14} /> : <FaEye size={14} />}
               </button>
             </div>
 
-            <div className="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wide text-blue-600">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between text-[10px] font-semibold uppercase tracking-wide text-blue-600 gap-2 sm:gap-0">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" className="accent-[#288ad6]" />
                 Remember me
@@ -124,8 +117,8 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }: Props) => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-2.5 text-xs font-bold uppercase tracking-widest text-white shadow-lg active:scale-[0.98] ${
-                loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600"
+              className={`w-full py-2.5 text-xs sm:text-sm font-bold uppercase tracking-widest text-white shadow-lg rounded active:scale-[0.98] transition ${
+                loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
               }`}
             >
               {loading ? "Logging in..." : "Log In"}
