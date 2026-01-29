@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
+
 export default function Product() {
+
+  
+
   const rightImages = ["/image/shoes/white j4.jpg", "/image/jewellery/necklace.jpg"];
 
   const bigImages = [

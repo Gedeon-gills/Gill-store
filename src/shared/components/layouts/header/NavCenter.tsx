@@ -5,6 +5,7 @@ import {
   FaChevronLeft,
   FaPlus,
   FaMinus,
+  FaBars,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import LoginModal from "../../ui/forms/signinForm";
@@ -13,6 +14,7 @@ import { useCart } from "../../layouts/context/useCart";
 
 export default function NavCenter() {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const {
     cart,
@@ -28,16 +30,16 @@ export default function NavCenter() {
 
   return (
     <div className="bg-blue-600">
-      <div className="max-w-7xl mx-auto flex items-center px-4 py-4">
+      <div className="max-w-7xl mx-auto flex items-center px-4 py-4 justify-between">
         {/* LOGO */}
-        <div className="text-white text-3xl font-bold mr-10">
+        <div className="text-white text-2xl sm:text-3xl font-bold">
           GillStore<span className="text-white">.</span>
         </div>
 
-        {/* Search */}
-        <div className="flex flex-1">
+        {/* Desktop Search */}
+        <div className="hidden sm:flex flex-1 mx-4">
           <input
-            className="w-full h-12 px-6 rounded-l-full bg-white text-gray-600 text-sm"
+            className="w-full h-12 px-6 rounded-l-full bg-white text-gray-600 text-sm focus:outline-none"
             placeholder="Search products..."
           />
           <select className="px-4 text-sm border-l bg-white text-gray-600">
@@ -46,8 +48,8 @@ export default function NavCenter() {
           <button className="bg-white px-5 rounded-r-full">🔍</button>
         </div>
 
-        {/* Icons */}
-        <div className="flex items-center gap-8 text-white ml-10">
+        {/* Desktop Icons */}
+        <div className="hidden sm:flex items-center gap-6 text-white">
           {/* Sign In */}
           <div
             className="flex items-center gap-2 cursor-pointer"
@@ -61,7 +63,7 @@ export default function NavCenter() {
           </div>
 
           {/* Wishlist */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 cursor-pointer">
             <FaHeart /> <span className="text-xs">0</span>
           </div>
 
@@ -77,16 +79,62 @@ export default function NavCenter() {
             </div>
           </div>
         </div>
+
+        {/* Mobile Hamburger */}
+        <div className="sm:hidden flex items-center">
+          <FaBars
+            className="text-white text-xl cursor-pointer"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          />
+        </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden bg-blue-600 text-white px-4 py-4 flex flex-col gap-4">
+          <input
+            className="w-full h-10 px-4 rounded-full text-gray-700"
+            placeholder="Search products..."
+          />
+          <select className="px-4 py-2 rounded bg-white text-gray-700">
+            <option>All Categories</option>
+          </select>
+
+          {/* Mobile Icons */}
+          <div className="flex flex-col gap-4">
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => {
+                setIsSignInOpen(true);
+                setMobileMenuOpen(false);
+              }}
+            >
+              <FaUser />
+              <span>SIGN IN</span>
+            </div>
+            <div className="flex items-center gap-2 cursor-pointer">
+              <FaHeart /> <span>0</span>
+            </div>
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => {
+                openCart();
+                setMobileMenuOpen(false);
+              }}
+            >
+              <FaShoppingCart /> <span>${getTotal().toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* SIDEBAR CART */}
       {isCartOpen && (
         <>
           <div className="fixed inset-0 bg-black/60 z-40" onClick={closeCart} />
-
-          <div className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg z-50">
+          <div className="fixed top-0 right-0 w-80 sm:w-96 h-full bg-white shadow-lg z-50 flex flex-col">
             {/* Header */}
-            <div className="p-4 bg-blue-600 text-white flex items-center">
+            <div className="p-4 bg-blue-600 text-white flex items-center relative">
               <button onClick={closeCart} className="absolute left-4">
                 <FaChevronLeft />
               </button>
@@ -94,7 +142,7 @@ export default function NavCenter() {
             </div>
 
             {/* Cart Items */}
-            <div className="p-4 flex flex-col gap-4 mt-4">
+            <div className="p-4 flex-1 flex flex-col gap-4 overflow-y-auto">
               {cart.length === 0 ? (
                 <div className="text-center text-gray-600 mt-10">
                   <FaShoppingCart className="text-6xl mx-auto mb-4" />
@@ -102,8 +150,8 @@ export default function NavCenter() {
                   <button
                     className="bg-blue-600 text-white px-4 py-2 mt-4"
                     onClick={() => {
-                      closeCart(); // close sidebar instantly
-                      navigate("/shop"); // navigate to shop page
+                      closeCart();
+                      navigate("/shop");
                     }}
                   >
                     CONTINUE SHOPPING
@@ -117,25 +165,20 @@ export default function NavCenter() {
                         src={item.image}
                         className="w-14 h-14 rounded object-cover"
                       />
-
                       <div className="flex-1">
                         <p className="text-gray-700 text-sm">{item.name}</p>
                         <p className="text-gray-500 text-xs">${item.price}</p>
-
-                        {/* Quantity Controller */}
                         <div className="flex items-center gap-2 mt-2">
                           <button
                             className="p-1 border rounded text-xs"
-                            onClick={() => decreaseQty(item.id)}
+                            onClick={() => decreaseQty(Number(item.id))}
                           >
                             <FaMinus size={10} />
                           </button>
-
                           <span className="px-2">{item.quantity}</span>
-
                           <button
                             className="p-1 border rounded text-xs"
-                            onClick={() => increaseQty(item.id)}
+                            onClick={() => increaseQty(Number(item.id))}
                           >
                             <FaPlus size={10} />
                           </button>
@@ -149,9 +192,7 @@ export default function NavCenter() {
                     <p className="font-semibold text-lg text-right mb-3">
                       Total: ${getTotal().toFixed(2)}
                     </p>
-
-                    <div className="flex gap-2">
-                      {/* View Cart */}
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <button
                         className="flex-1 border border-blue-600 text-blue-600 px-4 py-2 rounded hover:bg-blue-50"
                         onClick={() => {
@@ -161,8 +202,6 @@ export default function NavCenter() {
                       >
                         View Cart
                       </button>
-
-                      {/* Checkout */}
                       <button
                         className="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                         onClick={() => {

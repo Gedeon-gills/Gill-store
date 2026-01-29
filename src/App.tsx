@@ -22,7 +22,7 @@ export default function App() {
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/Shop" element={<Shop />} />
         <Route path="/shop/:category" element={<Shop />} />
-        <Route path="/product/:name" element={<ProductPage />} />
+        <Route path="/products/:id" element={<ProductPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/cart" element={<ViewCartPage />} />
       </Routes>

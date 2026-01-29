@@ -1,5 +1,5 @@
 export interface feature {
-  id: number; // Unique identifier
+  id: number|string; // Unique identifier
   name: string; // Product name
   category: "men" | "women" | "bag" | "shoes" | "watches";
   type: string; // T-SHIRT, CASUAL SHOES, LEATHER, etc.
