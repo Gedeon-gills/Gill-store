@@ -45,7 +45,7 @@ export default function CartPage() {
                   <div className="flex items-center gap-2 mt-2">
                     <button
                       className="p-1 border rounded"
-                      onClick={() => decreaseQty(item.id)}
+                      onClick={() => decreaseQty(Number(item.id))}
                     >
                       <FaMinus size={10} />
                     </button>
@@ -54,7 +54,7 @@ export default function CartPage() {
 
                     <button
                       className="p-1 border rounded"
-                      onClick={() => increaseQty(item.id)}
+                      onClick={() => increaseQty(Number(item.id))}
                     >
                       <FaPlus size={10} />
                     </button>
@@ -64,7 +64,7 @@ export default function CartPage() {
                 {/* Remove Button */}
                 <button
                   className="text-red-500 hover:text-red-700"
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => removeItem(Number(item.id))}
                 >
                   <FaTrash />
                 </button>

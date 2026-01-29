@@ -62,7 +62,7 @@ const Shop = () => {
 
         {/* PRODUCTS */}
         <main className="flex-1">
-          <FeaturedList products={filteredProducts} />
+          <FeaturedList featured={filteredProducts} />
         </main>
       </div>
 
