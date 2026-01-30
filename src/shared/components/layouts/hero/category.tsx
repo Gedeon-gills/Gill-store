@@ -40,11 +40,11 @@ export const CategoryList: React.FC = () => {
           to={`/shop/${cat.name}`}
           className="flex flex-col items-center group cursor-pointer"
         >
-          {/* <img
-            src={cat.image.desktop}
+          <img
+            src={cat.image}
             alt={cat.name}
             className="w-20 h-20 rounded-full object-cover border-2 border-gray-300 transition-transform duration-200 group-hover:scale-105"
-          /> */}
+          />
 
           <span className="mt-2 text-sm font-medium capitalize transition-colors duration-200 group-hover:text-blue-600">
             {cat.name}
