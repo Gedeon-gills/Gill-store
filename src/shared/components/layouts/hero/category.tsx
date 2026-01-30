@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-// import { categories } from "../../../store/category";
-// import type { Category } from "../../../store/category";
 import { categoryService } from "../../../services/categoryServices";
 
 export const CategoryList: React.FC = () => {
@@ -16,20 +14,9 @@ export const CategoryList: React.FC = () => {
     queryKey: ["categories"], // Unique identifier for this query (used for caching)
     queryFn: categoryService.getCategories, // The function that fetches the data
   });
-
-
-
-
-  console.log(categories?.categories);
-  
-
-
-
-
-
-
+console.log(categories?.categories);
   console.log(isLoading,isError,error,isSuccess)
-
+// Function to filter products by a specific property
 
   
   return (

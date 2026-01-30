@@ -1,5 +1,5 @@
 // services/userService.ts
-import api from './api';
+import api from "./api";
 export interface product {
   _id: string;
   name: string;
@@ -37,13 +37,13 @@ export interface ProductResponse {
   product: Product;
 }
 
-
-
 // User-related API functions using the configured Axios instance
 export const productServices = {
   // GET all Products
-  getProducts: async (): Promise<GetProductsResponse> => {
-    const response = await api.get('/products', );
+  getProducts: async (category?: string): Promise<GetProductsResponse> => {
+    const response = await api.get("/products", {
+      params: category ? { category } : {},
+    });
     return response.data;
   },
 
@@ -54,13 +54,20 @@ export const productServices = {
   },
 
   // POST create product
-  createProduct: async (userData: { name: string; email: string; role?: string }) => {
-    const response = await api.post('/products', userData);
+  createProduct: async (userData: {
+    name: string;
+    email: string;
+    role?: string;
+  }) => {
+    const response = await api.post("/products", userData);
     return response.data;
   },
 
   // PUT update product
-  updateProduct: async (id: string, userData: Partial<{ name: string; email: string; role: string }>) => {
+  updateProduct: async (
+    id: string,
+    userData: Partial<{ name: string; email: string; role: string }>,
+  ) => {
     const response = await api.put(`/products/${id}`, userData);
     return response.data;
   },

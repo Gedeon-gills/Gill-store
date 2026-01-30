@@ -1,91 +1,67 @@
 import { Link } from "react-router-dom";
-import type { feature } from "../../../store/featured";
 import {
   FaCartShopping,
   FaShuffle,
   FaSearchengin,
   FaHeart,
 } from "react-icons/fa6";
-import { productServices } from "../../../services/productServices";
-import { useQuery } from "@tanstack/react-query";
+import type { product } from "../../../services/productServices";
 
 interface FeaturedListProps {
-  featured: feature[];
-  limit?: number; // optional limit
-  title?: string; // optional title
+  featured: product[];
+  limit?: number;
+  title?: string;
 }
 
-export const FeaturedList = ({ limit, title }: FeaturedListProps) => {
-  const {
-    data: products, // The actual data from the API (renamed from 'data' to 'users')
-    isLoading, // True when fetching for the first time
-    isError, // True if an error occurred
-    error, // The actual error object
-    isSuccess, // True when data was fetched successfully
-  } = useQuery({
-    queryKey: ["products"], // Unique identifier for this query (used for caching)
-    queryFn: productServices.getProducts, // The function that fetches the data
-  });
+export const FeaturedList = ({ featured, limit, title }: FeaturedListProps) => {
+  const displayProducts = limit ? featured.slice(0, limit) : featured;
 
-  console.log(products?.products);
-
-  console.log(isLoading, isError, error, isSuccess);
+  if (!featured.length) {
+    return <p className="text-gray-500">No products found.</p>;
+  }
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 my-24">
       {title && (
-        <h2 className="text-3xl font-bold text-gray-700 mb-8 align-center">
+        <h2 className="text-3xl font-bold text-gray-700 mb-8">
           {title}
         </h2>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
-        {(limit
-          ? products?.products?.slice(0, limit)
-          : products?.products
-        )?.map((item, index) => (
-          <Link
-            key={index}
-            to={`/products/${item._id}`}
-            className="group"
-          >
-            <div
-              className="relative rounded-lg bg-white overflow-hidden
-              shadow hover:shadow-lg transition-all duration-300 pb-8"
-            >
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        {displayProducts.map((item) => (
+          <Link key={item._id} to={`/products/${item._id}`} className="group">
+            <div className="relative rounded-lg bg-white overflow-hidden shadow hover:shadow-lg transition pb-8">
+              
               {/* Wishlist */}
               <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow z-10">
                 <FaHeart />
               </button>
 
               {/* Image */}
-              <div className="w-full h-64 overflow-hidden bg-gray-100">
+              <div className="w-full h-64 bg-gray-100 overflow-hidden">
                 <img
                   src={item.images[0]}
                   alt={item.name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover group-hover:scale-105 transition"
                 />
               </div>
 
-              {/* Product Info */}
+              {/* Info */}
               <div className="px-3 mt-3">
                 <p className="text-[11px] text-gray-500 uppercase">
                   {item.category}
                 </p>
-                <h2 className="text-sm font-semibold mt-1 capitalize">
+                <h2 className="text-sm font-semibold capitalize">
                   {item.name}
                 </h2>
-                <p className="text-blue-600 font-semibold text-sm mt-2">
+                <p className="text-blue-600 font-semibold mt-2">
                   ${item.price}.00
                 </p>
               </div>
 
-              {/* Hover Actions */}
-              <div
-                className="absolute left-1/2 -translate-x-1/2 bottom-30
-                opacity-0 group-hover:opacity-100 transition-all duration-300
-                flex gap-3"
-              >
+              {/* Hover actions */}
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-6 opacity-0 group-hover:opacity-100 transition flex gap-3">
                 <button className="bg-white p-2 rounded shadow">
                   <FaShuffle />
                 </button>
